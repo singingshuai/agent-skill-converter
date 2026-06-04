@@ -1,4 +1,4 @@
-interface LossReportProps {
+ï»¿interface LossReportProps {
   report: {
     preserved: string[]
     partial: string[]
@@ -10,46 +10,46 @@ interface LossReportProps {
 function LossReport({ report }: LossReportProps) {
   return (
     <div style={{ marginTop: '2rem' }}>
-      <h2 style={{ marginBottom: '1rem' }}>×ª»»ËğÊ§±¨¸æ</h2>
+      <h2 style={{ marginBottom: '1rem' }}>è½¬æ¢æŸå¤±æŠ¥å‘Š</h2>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
         <div style={{ backgroundColor: '#d4edda', padding: '1rem', borderRadius: '4px' }}>
-          <h3 style={{ marginBottom: '0.5rem', color: '#155724' }}>ÍêÕû±£Áô</h3>
+          <h3 style={{ marginBottom: '0.5rem', color: '#155724' }}>å®Œæ•´ä¿ç•™</h3>
           <ul style={{ listStyle: 'none' }}>
             {report.preserved.map((item, idx) => (
-              <li key={idx} style={{ marginBottom: '0.25rem' }}>? {item}</li>
+              <li key={idx} style={{ marginBottom: '0.25rem' }}>âœ“ {item}</li>
             ))}
-            {report.preserved.length === 0 && <li>ÎŞ</li>}
+            {report.preserved.length === 0 && <li>æ— </li>}
           </ul>
         </div>
 
         <div style={{ backgroundColor: '#fff3cd', padding: '1rem', borderRadius: '4px' }}>
-          <h3 style={{ marginBottom: '0.5rem', color: '#856404' }}>²¿·Ö±£Áô</h3>
+          <h3 style={{ marginBottom: '0.5rem', color: '#856404' }}>éƒ¨åˆ†ä¿ç•™</h3>
           <ul style={{ listStyle: 'none' }}>
             {report.partial.map((item, idx) => (
-              <li key={idx} style={{ marginBottom: '0.25rem' }}>? {item}</li>
+              <li key={idx} style={{ marginBottom: '0.25rem' }}>âš  {item}</li>
             ))}
-            {report.partial.length === 0 && <li>ÎŞ</li>}
+            {report.partial.length === 0 && <li>æ— </li>}
           </ul>
         </div>
 
         <div style={{ backgroundColor: '#f8d7da', padding: '1rem', borderRadius: '4px' }}>
-          <h3 style={{ marginBottom: '0.5rem', color: '#721c24' }}>ÎŞ·¨±£Áô</h3>
+          <h3 style={{ marginBottom: '0.5rem', color: '#721c24' }}>æ— æ³•ä¿ç•™</h3>
           <ul style={{ listStyle: 'none' }}>
             {report.lost.map((item, idx) => (
-              <li key={idx} style={{ marginBottom: '0.25rem' }}>? {item}</li>
+              <li key={idx} style={{ marginBottom: '0.25rem' }}>âœ— {item}</li>
             ))}
-            {report.lost.length === 0 && <li>ÎŞ</li>}
+            {report.lost.length === 0 && <li>æ— </li>}
           </ul>
         </div>
 
         <div style={{ backgroundColor: '#d1ecf1', padding: '1rem', borderRadius: '4px' }}>
-          <h3 style={{ marginBottom: '0.5rem', color: '#0c5460' }}>ĞèÈË¹¤È·ÈÏ</h3>
+          <h3 style={{ marginBottom: '0.5rem', color: '#0c5460' }}>éœ€äººå·¥ç¡®è®¤</h3>
           <ul style={{ listStyle: 'none' }}>
             {report.manual_check.map((item, idx) => (
-              <li key={idx} style={{ marginBottom: '0.25rem' }}>?? {item}</li>
+              <li key={idx} style={{ marginBottom: '0.25rem' }}>ğŸ” {item}</li>
             ))}
-            {report.manual_check.length === 0 && <li>ÎŞ</li>}
+            {report.manual_check.length === 0 && <li>æ— </li>}
           </ul>
         </div>
       </div>

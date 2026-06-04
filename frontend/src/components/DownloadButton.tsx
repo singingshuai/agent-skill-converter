@@ -1,4 +1,4 @@
-interface DownloadButtonProps {
+锘縤nterface DownloadButtonProps {
   result: {
     success: boolean
     spec: Record<string, unknown> | null
@@ -32,7 +32,7 @@ function DownloadButton({ result }: DownloadButtonProps) {
   return (
     <div style={{ marginTop: '2rem' }}>
       <button onClick={handleDownload} style={{ padding: '0.75rem 1.5rem' }}>
-        下载转换结果
+        涓嬭浇杞崲缁撴灉
       </button>
     </div>
   )

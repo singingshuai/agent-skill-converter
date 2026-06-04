@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
+ï»¿import { useState, ChangeEvent, FormEvent } from 'react'
 import axios from 'axios'
 
 interface InputFormProps {
@@ -27,7 +27,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
     } catch (error: any) {
       if (error.response) {
         const detail = error.response.data.detail
-        let errorMessage = '×ª»»Ê§°Ü'
+        let errorMessage = 'è½¬æ¢å¤±è´¥'
         if (typeof detail === 'string') {
           errorMessage = detail
         } else if (Array.isArray(detail)) {
@@ -48,7 +48,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
           spec: null,
           output_files: [],
           loss_report: { preserved: [], partial: [], lost: [], manual_check: [] },
-          error: 'ÍøÂç´íÎó: ' + (error.message || 'Î´Öª´íÎó'),
+          error: 'ç½‘ç»œé”™è¯¯: ' + (error.message || 'æœªçŸ¥é”™è¯¯'),
         })
       }
     } finally {
@@ -60,7 +60,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <div style={{ display: 'flex', gap: '1rem' }}>
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Ô´Æ½Ì¨</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>æºå¹³å°</label>
           <select
             value={sourcePlatform}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => setSourcePlatform(e.target.value)}
@@ -71,7 +71,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
         </div>
 
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Ä¿±êÆ½Ì¨</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>ç›®æ ‡å¹³å°</label>
           <select
             value={targetPlatform}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => setTargetPlatform(e.target.value)}
@@ -80,17 +80,17 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
             <option value="claude">Claude</option>
             <option value="cursor">Cursor</option>
             <option value="copilot">GitHub Copilot</option>
-            <option value="markdown">Í¨ÓÃMarkdown</option>
+            <option value="markdown">é€šç”¨Markdown</option>
           </select>
         </div>
       </div>
 
       <div>
-        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>SKILL.md ÄÚÈİ</label>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>SKILL.md å†…å®¹</label>
         <textarea
           value={content}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
-          placeholder="ÔÚ´ËÕ³ÌùÄãµÄ SKILL.md ÄÚÈİ..."
+          placeholder="åœ¨æ­¤ç²˜è´´ä½ çš„ SKILL.md å†…å®¹..."
           style={{
             width: '100%',
             minHeight: '300px',
@@ -110,7 +110,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
           opacity: loading || !content.trim() ? 0.6 : 1,
         }}
       >
-        {loading ? '×ª»»ÖĞ...' : '¿ªÊ¼×ª»»'}
+        {loading ? 'è½¬æ¢ä¸­...' : 'å¼€å§‹è½¬æ¢'}
       </button>
     </form>
   )

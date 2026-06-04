@@ -1,4 +1,4 @@
-import { useState } from 'react'
+ï»¿import { useState } from 'react'
 import InputForm from './components/InputForm'
 import JsonPreview from './components/JsonPreview'
 import LossReport from './components/LossReport'
@@ -25,7 +25,7 @@ function App() {
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
       <h1 style={{ marginBottom: '2rem', fontSize: '2rem' }}>Agent Skill Converter</h1>
       <p style={{ marginBottom: '1rem', color: '#666' }}>
-        ½« Codex ¼¼ÄÜ×ª»»Îª Claude¡¢Cursor¡¢GitHub Copilot »òÍ¨ÓÃ Markdown ¸ñÊ½
+        å°† Codex æŠ€èƒ½è½¬æ¢ä¸º Claudeã€Cursorã€GitHub Copilot æˆ–é€šç”¨ Markdown æ ¼å¼
       </p>
 
       <InputForm
@@ -44,7 +44,7 @@ function App() {
               borderRadius: '4px',
               marginBottom: '1rem',
             }}>
-              <strong>´íÎó£º</strong> {result.error}
+              <strong>é”™è¯¯ï¼š</strong> {result.error}
             </div>
           )}
 
@@ -53,7 +53,7 @@ function App() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                 <JsonPreview spec={result.spec} />
                 <div>
-                  <h2 style={{ marginBottom: '1rem' }}>×ª»»½á¹û</h2>
+                  <h2 style={{ marginBottom: '1rem' }}>è½¬æ¢ç»“æœ</h2>
                   {result.output_files.map((file, idx) => (
                     <div key={idx} style={{ marginBottom: '1rem' }}>
                       <h3>{file.filename}</h3>

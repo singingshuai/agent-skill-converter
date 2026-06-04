@@ -1,4 +1,4 @@
-interface JsonPreviewProps {
+锘縤nterface JsonPreviewProps {
   spec: Record<string, unknown> | null
 }
 
@@ -6,14 +6,14 @@ function JsonPreview({ spec }: JsonPreviewProps) {
   if (!spec) {
     return (
       <div>
-        <h2 style={{ marginBottom: '1rem' }}>中间JSON结构</h2>
+        <h2 style={{ marginBottom: '1rem' }}>涓棿JSON缁撴瀯</h2>
         <pre style={{
           backgroundColor: '#f5f5f5',
           padding: '1rem',
           borderRadius: '4px',
           minHeight: '200px',
         }}>
-          暂无数据
+          鏆傛棤鏁版嵁
         </pre>
       </div>
     )
@@ -21,7 +21,7 @@ function JsonPreview({ spec }: JsonPreviewProps) {
 
   return (
     <div>
-      <h2 style={{ marginBottom: '1rem' }}>中间JSON结构</h2>
+      <h2 style={{ marginBottom: '1rem' }}>涓棿JSON缁撴瀯</h2>
       <pre style={{
         backgroundColor: '#f5f5f5',
         padding: '1rem',
