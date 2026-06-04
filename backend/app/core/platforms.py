@@ -5,6 +5,7 @@ class Platform(str, Enum):
     CODEX = "codex"
     CLAUDE = "claude"
     CURSOR = "cursor"
+    COPILOT = "copilot"
     MARKDOWN = "markdown"
 
 

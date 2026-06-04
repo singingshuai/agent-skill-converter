@@ -27,7 +27,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
     } catch (error: any) {
       if (error.response) {
         const detail = error.response.data.detail
-        let errorMessage = 'Conversion failed'
+        let errorMessage = '转换失败'
         if (typeof detail === 'string') {
           errorMessage = detail
         } else if (Array.isArray(detail)) {
@@ -48,7 +48,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
           spec: null,
           output_files: [],
           loss_report: { preserved: [], partial: [], lost: [], manual_check: [] },
-          error: 'Network error: ' + (error.message || 'Unknown error'),
+          error: '网络错误: ' + (error.message || '未知错误'),
         })
       }
     } finally {
@@ -60,7 +60,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <div style={{ display: 'flex', gap: '1rem' }}>
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Source Platform</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>源平台</label>
           <select
             value={sourcePlatform}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => setSourcePlatform(e.target.value)}
@@ -71,7 +71,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
         </div>
 
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Target Platform</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>目标平台</label>
           <select
             value={targetPlatform}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => setTargetPlatform(e.target.value)}
@@ -79,17 +79,18 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
           >
             <option value="claude">Claude</option>
             <option value="cursor">Cursor</option>
-            <option value="markdown">Markdown</option>
+            <option value="copilot">GitHub Copilot</option>
+            <option value="markdown">通用Markdown</option>
           </select>
         </div>
       </div>
 
       <div>
-        <label style={{ display: 'block', marginBottom: '0.5rem' }}>SKILL.md Content</label>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>SKILL.md 内容</label>
         <textarea
           value={content}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
-          placeholder="Paste your SKILL.md content here..."
+          placeholder="在此粘贴你的 SKILL.md 内容..."
           style={{
             width: '100%',
             minHeight: '300px',
@@ -109,7 +110,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
           opacity: loading || !content.trim() ? 0.6 : 1,
         }}
       >
-        {loading ? 'Converting...' : 'Convert'}
+        {loading ? '转换中...' : '开始转换'}
       </button>
     </form>
   )

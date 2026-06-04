@@ -32,7 +32,7 @@ function DownloadButton({ result }: DownloadButtonProps) {
   return (
     <div style={{ marginTop: '2rem' }}>
       <button onClick={handleDownload} style={{ padding: '0.75rem 1.5rem' }}>
-        Download Result
+        下载转换结果
       </button>
     </div>
   )

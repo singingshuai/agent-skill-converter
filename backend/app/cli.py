@@ -6,6 +6,7 @@ from pathlib import Path
 from .parsers.codex_parser import parse_codex_skill
 from .generators.claude_generator import generate_claude
 from .generators.cursor_generator import generate_cursor
+from .generators.copilot_generator import generate_copilot
 from .generators.markdown_generator import generate_markdown
 from .core.validator import validate_spec, ValidationError
 
@@ -16,6 +17,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 GENERATORS = {
     "claude": generate_claude,
     "cursor": generate_cursor,
+    "copilot": generate_copilot,
     "markdown": generate_markdown,
 }
 

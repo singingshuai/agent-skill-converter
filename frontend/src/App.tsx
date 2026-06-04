@@ -24,6 +24,9 @@ function App() {
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
       <h1 style={{ marginBottom: '2rem', fontSize: '2rem' }}>Agent Skill Converter</h1>
+      <p style={{ marginBottom: '1rem', color: '#666' }}>
+        将 Codex 技能转换为 Claude、Cursor、GitHub Copilot 或通用 Markdown 格式
+      </p>
 
       <InputForm
         onResult={setResult}
@@ -41,7 +44,7 @@ function App() {
               borderRadius: '4px',
               marginBottom: '1rem',
             }}>
-              <strong>Error:</strong> {result.error}
+              <strong>错误：</strong> {result.error}
             </div>
           )}
 
@@ -50,7 +53,7 @@ function App() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                 <JsonPreview spec={result.spec} />
                 <div>
-                  <h2 style={{ marginBottom: '1rem' }}>Converted Output</h2>
+                  <h2 style={{ marginBottom: '1rem' }}>转换结果</h2>
                   {result.output_files.map((file, idx) => (
                     <div key={idx} style={{ marginBottom: '1rem' }}>
                       <h3>{file.filename}</h3>
