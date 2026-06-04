@@ -10,7 +10,7 @@ def parse_codex_skill(skill_dir: Path) -> AgentSkillSpec:
     if not skill_md.exists():
         raise FileNotFoundError(f"SKILL.md not found in {skill_dir}")
 
-    content = skill_md.read_text(encoding="utf-8")
+    content = skill_md.read_text(encoding="utf-8-sig")
     lines = content.split("\n")
 
     name = _extract_name(skill_dir, lines)
@@ -62,7 +62,7 @@ def _extract_name(skill_dir: Path, lines: List[str]) -> str:
 def _extract_description(lines: List[str]) -> str:
     # Try YAML frontmatter
     in_frontmatter = False
-    for line in lines:
+    for i, line in enumerate(lines):
         stripped = line.strip()
         if stripped == "---":
             if not in_frontmatter:
@@ -71,7 +71,16 @@ def _extract_description(lines: List[str]) -> str:
             else:
                 break
         if in_frontmatter and stripped.startswith("description:"):
-            return stripped[12:].strip()
+            desc = stripped[12:].strip()
+            if desc:
+                return desc
+            # If description is empty, check next lines
+            for j in range(i + 1, len(lines)):
+                next_line = lines[j].strip()
+                if next_line.startswith("---") or next_line.startswith("#"):
+                    break
+                if next_line:
+                    return next_line
     
     # Try markdown header
     desc_lines: List[str] = []
@@ -96,7 +105,7 @@ def _extract_triggers(lines: List[str], content: str) -> Triggers:
     # Try to find "When to Use" section
     for i, line in enumerate(lines):
         stripped = line.strip()
-        if stripped.lower().startswith("## when to use"):
+        if stripped.lower().startswith("## when to use") or stripped.lower().startswith("## trigger"):
             # Get the content after this header
             for j in range(i + 1, len(lines)):
                 next_line = lines[j].strip()
@@ -154,6 +163,21 @@ def _extract_workflow(lines: List[str]) -> List[WorkflowStep]:
                 step_num += 1
                 steps.append(WorkflowStep(step=step_num, description=stripped[2:]))
     
+    # If no workflow found, try to extract from "Generation Rules" or similar sections
+    if not steps:
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            if stripped.lower().startswith("## generation rules") or stripped.lower().startswith("## rules"):
+                for j in range(i + 1, len(lines)):
+                    next_line = lines[j].strip()
+                    if next_line.startswith("#"):
+                        break
+                    match = re.match(r'^(\d+)\.\s+(.+)$', next_line)
+                    if match:
+                        step_num = int(match.group(1))
+                        steps.append(WorkflowStep(step=step_num, description=match.group(2)))
+                break
+    
     return steps
 
 
@@ -177,6 +201,16 @@ def _extract_constraints(lines: List[str]) -> List[str]:
         # Extract constraints
         if in_constraints and (stripped.startswith("- ") or stripped.startswith("* ")):
             constraints.append(stripped[2:])
+    
+    # If no constraints found, try to extract from other sections
+    if not constraints:
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            if "must" in stripped.lower() or "should" in stripped.lower() or "do not" in stripped.lower():
+                if stripped.startswith("- ") or stripped.startswith("* "):
+                    constraints.append(stripped[2:])
+                elif re.match(r'^\d+\.\s+', stripped):
+                    constraints.append(stripped)
     
     return constraints
 
