@@ -15,7 +15,15 @@ def generate_copilot(spec: AgentSkillSpec) -> Dict[str, object]:
         partial.append("triggers")
 
     if spec.workflow:
+        preserved.append("workflow")
+    else:
         partial.append("workflow")
+
+    if spec.constraints:
+        preserved.append("constraints")
+
+    if spec.examples:
+        preserved.append("examples")
 
     if spec.resources:
         lost.append("resources")

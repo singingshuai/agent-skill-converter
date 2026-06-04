@@ -17,6 +17,12 @@ def generate_cursor(spec: AgentSkillSpec) -> Dict[str, object]:
     if spec.workflow:
         partial.append("workflow")
 
+    if spec.constraints:
+        preserved.append("constraints")
+
+    if spec.examples:
+        preserved.append("examples")
+
     if spec.resources:
         lost.append("resources")
 
@@ -47,6 +53,13 @@ alwaysApply: false
             content += f"- {item}\n"
     else:
         content += "Standard output.\n"
+
+    content += "\n## Examples\n\n"
+    if spec.examples:
+        for example in spec.examples:
+            content += f"```\n{example}\n```\n\n"
+    else:
+        content += "No examples provided.\n"
 
     return {
         "success": True,

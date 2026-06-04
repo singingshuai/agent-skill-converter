@@ -102,28 +102,29 @@ def _extract_triggers(lines: List[str], content: str) -> Triggers:
     keywords: List[str] = []
     intent = ""
     
-    # Try to find "When to Use" section
+    # Try to find "When to Use" or "Trigger" section
+    in_trigger_section = False
+    trigger_lines: List[str] = []
+    
     for i, line in enumerate(lines):
         stripped = line.strip()
         if stripped.lower().startswith("## when to use") or stripped.lower().startswith("## trigger"):
-            # Get the content after this header
-            for j in range(i + 1, len(lines)):
-                next_line = lines[j].strip()
-                if next_line.startswith("#"):
-                    break
-                if next_line:
-                    intent = next_line
-                    break
-            break
+            in_trigger_section = True
+            continue
+        if in_trigger_section and stripped.startswith("#"):
+            in_trigger_section = False
+            continue
+        if in_trigger_section and stripped:
+            trigger_lines.append(stripped)
     
-    # Fallback: extract from description or content
-    if not intent:
-        # Look for "Use when" pattern in content
+    if trigger_lines:
+        intent = " ".join(trigger_lines)
+    else:
+        # Fallback: extract from description or content
         use_when_match = re.search(r'[Uu]se when[^.]*\.', content)
         if use_when_match:
             intent = use_when_match.group(0)
         else:
-            # Use description as intent
             for line in lines:
                 stripped = line.strip()
                 if stripped.startswith("description:"):
@@ -142,7 +143,7 @@ def _extract_workflow(lines: List[str]) -> List[WorkflowStep]:
         stripped = line.strip()
         
         # Detect workflow section
-        if stripped.lower().startswith("## workflow") or "workflow" in stripped.lower():
+        if stripped.lower().startswith("## workflow") or stripped.lower().startswith("## required prelude"):
             in_workflow = True
             continue
         
@@ -163,7 +164,7 @@ def _extract_workflow(lines: List[str]) -> List[WorkflowStep]:
                 step_num += 1
                 steps.append(WorkflowStep(step=step_num, description=stripped[2:]))
     
-    # If no workflow found, try to extract from "Generation Rules" or similar sections
+    # If no workflow found, try to extract from other sections
     if not steps:
         for i, line in enumerate(lines):
             stripped = line.strip()
