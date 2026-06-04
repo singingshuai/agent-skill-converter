@@ -64,36 +64,6 @@ def test_missing_triggers():
     assert "triggers must contain at least one keyword or intent" in exc_info.value.errors
 
 
-def test_missing_workflow():
-    spec = AgentSkillSpec(
-        name="Test Skill",
-        description="A test skill",
-        source_platform="codex",
-        triggers=Triggers(keywords=["test"]),
-        workflow=[],
-        constraints=["Be careful"],
-        outputs=Outputs(format="markdown", must_include=[]),
-    )
-    with pytest.raises(ValidationError) as exc_info:
-        validate_spec(spec)
-    assert "workflow must contain at least one step" in exc_info.value.errors
-
-
-def test_missing_constraints():
-    spec = AgentSkillSpec(
-        name="Test Skill",
-        description="A test skill",
-        source_platform="codex",
-        triggers=Triggers(keywords=["test"]),
-        workflow=[WorkflowStep(step=1, description="Do something")],
-        constraints=[],
-        outputs=Outputs(format="markdown", must_include=[]),
-    )
-    with pytest.raises(ValidationError) as exc_info:
-        validate_spec(spec)
-    assert "constraints must not be empty" in exc_info.value.errors
-
-
 def test_unsupported_source_platform():
     spec = AgentSkillSpec(
         name="Test Skill",

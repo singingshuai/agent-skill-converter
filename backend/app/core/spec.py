@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -23,6 +23,12 @@ class Outputs(BaseModel):
     must_include: List[str] = Field(default_factory=list)
 
 
+class Section(BaseModel):
+    title: str
+    level: int
+    content: str
+
+
 class AgentSkillSpec(BaseModel):
     name: str
     description: str
@@ -36,6 +42,7 @@ class AgentSkillSpec(BaseModel):
     outputs: Outputs = Field(default_factory=Outputs)
     resources: List[ResourceItem] = Field(default_factory=list)
     examples: List[str] = Field(default_factory=list)
+    sections: List[Section] = Field(default_factory=list)
     metadata: Dict[str, object] = Field(default_factory=dict)
 
 

@@ -18,10 +18,8 @@ def validate_spec(spec: AgentSkillSpec) -> None:
         errors.append("description is required")
     if not spec.triggers.keywords and not spec.triggers.intent:
         errors.append("triggers must contain at least one keyword or intent")
-    if not spec.workflow:
-        errors.append("workflow must contain at least one step")
-    if not spec.constraints:
-        errors.append("constraints must not be empty")
+    if not spec.workflow and not spec.sections:
+        errors.append("workflow or sections must contain content")
 
     if not is_supported(spec.source_platform):
         errors.append(f"unsupported source platform: {spec.source_platform}")
