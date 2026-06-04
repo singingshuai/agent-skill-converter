@@ -1,6 +1,7 @@
 import argparse
 import json
 import sys
+import io
 from pathlib import Path
 from .parsers.codex_parser import parse_codex_skill
 from .generators.claude_generator import generate_claude
@@ -8,6 +9,9 @@ from .generators.cursor_generator import generate_cursor
 from .generators.markdown_generator import generate_markdown
 from .core.validator import validate_spec, ValidationError
 
+# Force UTF-8 output
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 GENERATORS = {
     "claude": generate_claude,

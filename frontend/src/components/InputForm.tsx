@@ -26,12 +26,21 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
       onResult(response.data)
     } catch (error: any) {
       if (error.response) {
+        const detail = error.response.data.detail
+        let errorMessage = 'Conversion failed'
+        if (typeof detail === 'string') {
+          errorMessage = detail
+        } else if (Array.isArray(detail)) {
+          errorMessage = detail.map((d: any) => d.msg || d).join(', ')
+        } else if (detail && detail.errors) {
+          errorMessage = detail.errors.join(', ')
+        }
         onResult({
           success: false,
           spec: null,
           output_files: [],
           loss_report: { preserved: [], partial: [], lost: [], manual_check: [] },
-          error: error.response.data.detail || 'Conversion failed',
+          error: errorMessage,
         })
       } else {
         onResult({
@@ -39,7 +48,7 @@ function InputForm({ onResult, loading, setLoading }: InputFormProps) {
           spec: null,
           output_files: [],
           loss_report: { preserved: [], partial: [], lost: [], manual_check: [] },
-          error: 'Network error',
+          error: 'Network error: ' + (error.message || 'Unknown error'),
         })
       }
     } finally {

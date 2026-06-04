@@ -22,7 +22,7 @@ function App() {
   const [loading, setLoading] = useState(false)
 
   return (
-    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
       <h1 style={{ marginBottom: '2rem', fontSize: '2rem' }}>Agent Skill Converter</h1>
 
       <InputForm
@@ -33,32 +33,48 @@ function App() {
 
       {result && (
         <div style={{ marginTop: '2rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-            <JsonPreview spec={result.spec} />
-            <div>
-              <h2 style={{ marginBottom: '1rem' }}>Converted Output</h2>
-              {result.output_files.map((file, idx) => (
-                <div key={idx} style={{ marginBottom: '1rem' }}>
-                  <h3>{file.filename}</h3>
-                  <pre style={{
-                    backgroundColor: '#f5f5f5',
-                    padding: '1rem',
-                    borderRadius: '4px',
-                    overflow: 'auto',
-                    maxHeight: '400px',
-                    whiteSpace: 'pre-wrap',
-                    wordWrap: 'break-word',
-                  }}>
-                    {file.content}
-                  </pre>
-                </div>
-              ))}
+          {result.error && (
+            <div style={{
+              backgroundColor: '#f8d7da',
+              color: '#721c24',
+              padding: '1rem',
+              borderRadius: '4px',
+              marginBottom: '1rem',
+            }}>
+              <strong>Error:</strong> {result.error}
             </div>
-          </div>
+          )}
 
-          <LossReport report={result.loss_report} />
+          {result.success && (
+            <>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                <JsonPreview spec={result.spec} />
+                <div>
+                  <h2 style={{ marginBottom: '1rem' }}>Converted Output</h2>
+                  {result.output_files.map((file, idx) => (
+                    <div key={idx} style={{ marginBottom: '1rem' }}>
+                      <h3>{file.filename}</h3>
+                      <pre style={{
+                        backgroundColor: '#f5f5f5',
+                        padding: '1rem',
+                        borderRadius: '4px',
+                        overflow: 'auto',
+                        maxHeight: '400px',
+                        whiteSpace: 'pre-wrap',
+                        wordWrap: 'break-word',
+                      }}>
+                        {file.content}
+                      </pre>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-          <DownloadButton result={result} />
+              <LossReport report={result.loss_report} />
+
+              <DownloadButton result={result} />
+            </>
+          )}
         </div>
       )}
     </div>
