@@ -1,4 +1,4 @@
-# Python
+﻿# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -29,3 +29,10 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Sensitive data - do not push
+examples/
+backend/
+dist/
+docs/
+docker-compose.yml
