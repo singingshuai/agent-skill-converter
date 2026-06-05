@@ -665,3 +665,33 @@ textarea::placeholder {
   from { opacity: 0; max-height: 0; }
   to { opacity: 1; max-height: 600px; }
 }
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-family: 'Noto Sans SC', 'Inter', sans-serif;
+}
+
+.app-footer p {
+  margin: 0.3rem 0;
+}
+
+.app-footer a {
+  color: #5b8def;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.app-footer a:hover {
+  color: #85b0ff;
+  text-decoration: underline;
+}
+
+.footer-link {
+  font-size: 0.78rem;
+  opacity: 0.85;
+}

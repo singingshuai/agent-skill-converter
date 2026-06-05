@@ -514,6 +514,12 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* Footer */}
+      <footer className="app-footer">
+        <p>如有建议或问题，欢迎提交 <a href="https://github.com/singingshuai/agent-skill-converter/issues" target="_blank" rel="noopener noreferrer">Issue</a></p>
+        <p className="footer-link">项目地址：<a href="https://github.com/singingshuai/agent-skill-converter" target="_blank" rel="noopener noreferrer">github.com/singingshuai/agent-skill-converter</a></p>
+      </footer>
     </div>
   );
 }
