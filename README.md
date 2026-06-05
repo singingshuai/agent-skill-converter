@@ -1,102 +1,103 @@
-﻿# Agent Skill Converter
+﻿# Agent Skill 转换器
 
-Convert agent skills between Codex, Claude, Cursor, GitHub Copilot, and Markdown formats.
+在 Codex / Claude / Cursor / GitHub Copilot 之间相互转换 Agent Skills。
 
-## Features
+## 功能
 
-- **Bidirectional conversion**: Codex ↔ Claude ↔ Cursor ↔ GitHub Copilot ↔ Markdown
-- **Auto-detection**: Automatically identifies the source platform from pasted content
-- **Step flow chart**: Skills with workflow steps are displayed as a vertical flow diagram
-- **Section comparison**: Side-by-side comparison of each section before and after conversion
-- **Loss report**: Detailed report of fully preserved / partially preserved / lost / manual-check items
-- **Conversion verification**: Simulates how the target platform reads the output, with a compatibility score
-- **Intermediate JSON**: View the unified `AgentSkillSpec` intermediate representation
-- **Single-file version**: A 178KB standalone HTML file, no server needed
+- **双向转换**：Codex ↔ Claude ↔ Cursor ↔ GitHub Copilot ↔ Markdown
+- **平台自动检测**：粘贴内容后自动识别来源平台
+- **步骤流程图**：有工作流步骤的 skill 以垂直流程图展示
+- **章节对比**：逐 section 对比转换前后的保留情况，点击可展开详情
+- **损失报告**：每次转换生成完整/部分/丢失/需确认的报告
+- **转换验证**：模拟目标平台读取转换结果，给出兼容性评分
+- **中间 JSON**：查看统一中间标准 `AgentSkillSpec` 的完整结构
+- **单文件可用**：178KB 的 HTML 文件，双击即可使用
 
-## Quick Start
+## 快速使用
 
-### Online (Recommended)
+### 方式一：在线访问（推荐）
 
-Visit the GitHub Pages deployment:
+直接访问 GitHub Pages 部署地址：
 
 **https://singingshuai.github.io/agent-skill-converter/**
 
-### Local Development
+### 方式二：本地启动
 
 ```bash
+# 双击启动
+启动转换器.bat
+
+# 或手动命令
 cd frontend
 npm install
 npm run dev
-# Open http://localhost:3000
+# 访问 http://localhost:3000
 ```
 
-### Single File
+### 方式三：单文件
 
-The root `agent-skill-converter.html` is a self-contained 178KB file with all JS and CSS inlined. Serve it via HTTP (browser security blocks `file://` protocol):
+项目根目录的 `agent-skill-converter.html` 是一个 178KB 的独立文件，所有 JS 和 CSS 已内联。通过本地 HTTP 服务打开即可使用：
 
 ```bash
+# 需要通过 HTTP 服务打开（浏览器安全限制不允许直接 file:// 打开）
 python -m http.server 8080
-# Open http://localhost:8080/agent-skill-converter.html
+# 然后浏览器访问 http://localhost:8080/agent-skill-converter.html
 ```
 
-### Windows One-Click
+## 使用方法
 
-Double-click `启动转换器.bat` (Start Converter) to launch a local server and open the browser automatically.
+1. **粘贴内容**：将任意平台的 skill 文件内容粘贴到输入框
+   - 支持 Codex `SKILL.md`（含 `license` 字段的 frontmatter）
+   - 支持 Claude `SKILL.md`（含 `name` 字段的 frontmatter）
+   - 支持 Cursor `.mdc`（含 `alwaysApply` 字段的 frontmatter）
+2. **选择目标平台**：从下拉菜单选择要转换成的平台
+3. **点击"开始转换"**
+4. **查看结果**：
+   - **步骤流程**：有工作流步骤时展示垂直流程图（可点击展开详情）
+   - **章节对比**：左右对比每个 section 的保留情况（可点击展开内容预览）
+   - **转换结果**：查看生成的目标平台文件
+   - **中间 JSON**：查看统一中间标准结构
+   - **损失报告**：查看完整保留/部分保留/丢失/需确认的内容
+   - **转换验证**：查看目标平台能否正确读取转换结果
 
-## Usage
+## 部署到 GitHub Pages
 
-1. **Paste content**: Paste any platform's skill file content into the input box
-   - Codex `SKILL.md` (frontmatter with `license` field)
-   - Claude `SKILL.md` (frontmatter with `name` field)
-   - Cursor `.mdc` (frontmatter with `alwaysApply` field)
-2. **Select target platform** from the dropdown
-3. **Click "开始转换"** (Start Conversion)
-4. **View results**:
-   - **步骤流程** (Steps): Vertical flow chart of workflow steps (click to expand details)
-   - **章节对比** (Sections): Side-by-side section comparison (click to expand content preview)
-   - **转换结果** (Output): Generated target platform file
-   - **中间 JSON** (Spec): Unified intermediate representation
-   - **损失报告** (Report): Preservation status of each field
-   - **转换验证** (Verify): Target platform compatibility score
-
-## Deploy to GitHub Pages
-
-### Automatic
+### 自动部署
 
 ```bash
 # Windows
-deploy-github-pages.bat https://github.com/username/repo.git
+deploy-github-pages.bat https://github.com/用户名/仓库名.git
 
 # Linux/Mac
-bash deploy-github-pages.sh https://github.com/username/repo.git
+bash deploy-github-pages.sh https://github.com/用户名/仓库名.git
 ```
 
-### Manual
+### 手动部署
 
-1. Create a public repository on GitHub
-2. Push the code:
+1. 在 GitHub 上创建公开仓库
+2. 推送代码：
 
 ```bash
-git remote add github https://github.com/username/repo.git
+git remote add github https://github.com/用户名/仓库名.git
 git push -u github master
 ```
 
-3. Go to repository → Settings → Pages → Source: select `master` branch
-4. Wait 1-2 minutes, then visit `https://username.github.io/repo/`
+3. 到仓库 → Settings → Pages → Source 选 `master` 分支
+4. 等待 1-2 分钟即可访问
 
-## Project Structure
+## 项目结构
 
 ```
 agent-skill-converter/
-├── README.md                       # This file
-├── README_CN.md                    # Chinese documentation
-├── agent-skill-converter.html      # Standalone single-file version (178KB)
-├── index.html                      # GitHub Pages entry point
-├── assets/                         # GitHub Pages static assets
-├── 启动转换器.bat                    # Windows one-click launcher
-├── serve.bat                       # npx serve launcher
-├── deploy-github-pages.bat         # GitHub Pages deploy script (Windows)
-├── deploy-github-pages.sh          # GitHub Pages deploy script (Linux/Mac)
+├── README.md                       # 英文说明
+├── README_CN.md                    # 中文说明（本文件）
+├── agent-skill-converter.html      # 单文件版本（178KB，双击可用）
+├── index.html                      # GitHub Pages 入口
+├── assets/                         # GitHub Pages 静态资源
+├── 启动转换器.bat                    # Windows 一键启动
+├── serve.bat                       # npx serve 启动
+├── deploy-github-pages.bat         # GitHub Pages 部署脚本（Windows）
+├── deploy-github-pages.sh          # GitHub Pages 部署脚本（Linux/Mac）
 ├── .gitignore
 └── frontend/
     ├── index.html
@@ -104,34 +105,33 @@ agent-skill-converter/
     ├── vite.config.ts
     ├── tsconfig.json
     └── src/
-        ├── App.tsx                 # Main UI
-        ├── index.css               # Styles
-        ├── main.tsx                # Entry point
+        ├── App.tsx                 # 主界面
+        ├── index.css               # 样式
+        ├── main.tsx                # 入口
         └── lib/
-            ├── types.ts            # Type definitions
-            ├── parser.ts           # Parsers (Codex/Claude/Cursor)
-            ├── generators.ts       # Generators (5 target platforms)
-            ├── validator.ts        # Validation rules
-            └── verifier.ts         # Conversion verification
+            ├── types.ts            # 类型定义
+            ├── parser.ts           # 解析器（Codex/Claude/Cursor）
+            ├── generators.ts       # 生成器（5 个目标平台）
+            ├── validator.ts        # 校验规则
+            └── verifier.ts         # 转换验证
 ```
 
-## Architecture
+## 技术方案
 
-- **Pure frontend**: All conversion logic runs in the browser, no backend required
-- **Intermediate standard**: All skills are first parsed into a unified `AgentSkillSpec` structure, then generated into the target platform format
-- **Rule-based conversion**: No LLM dependency, deterministic rule-based transformation
-- **Content preservation**: Section-level preservation (not field-level extraction), 99%+ retention rate
-- **47 test cases**: Verified against real-world skills from Codex, Claude, and Cursor
+- **纯前端**：所有转换逻辑在浏览器内完成，无需后端
+- **中间标准**：所有 skill 先解析为统一的 `AgentSkillSpec` 结构，再生成目标平台格式
+- **规则转换**：不依赖大模型，基于规则的确定性转换
+- **内容保留**：逐 section 保留，非逐字段提取，保留率 99%+
 
-## Supported Platforms
+## 支持的平台
 
-| Platform | Input | Output | Format |
-|----------|-------|--------|--------|
+| 平台 | 输入 | 输出 | 格式特征 |
+|------|------|------|----------|
 | Codex | ✅ | ✅ | `name` + `description` + `license` frontmatter |
 | Claude | ✅ | ✅ | `name` + `description` frontmatter |
-| Cursor | ✅ | ✅ | `description` + `globs` + `alwaysApply` frontmatter, `.mdc` files |
-| GitHub Copilot | - | ✅ | Claude-style format |
-| Markdown | - | ✅ | Generic markdown with metadata |
+| Cursor | ✅ | ✅ | `description` + `globs` + `alwaysApply` frontmatter，`.mdc` 文件 |
+| GitHub Copilot | - | ✅ | 基于 Claude 格式 |
+| Markdown | - | ✅ | 通用 Markdown 格式，含元数据 |
 
 ## License
 
