@@ -1,135 +1,137 @@
-# Agent Skill Converter
+ï»¿# Agent Skill Converter
 
-Convert agent skills between different platforms (Codex, Claude, Cursor, etc.) using a unified intermediate standard.
+Convert agent skills between Codex, Claude, Cursor, GitHub Copilot, and Markdown formats.
 
 ## Features
 
-- Convert Codex skills to Claude, Cursor, or generic Markdown format
-- View intermediate JSON representation
-- Generate conversion loss reports
-- CLI and Web interface
+- **Bidirectional conversion**: Codex â†” Claude â†” Cursor â†” GitHub Copilot â†” Markdown
+- **Auto-detection**: Automatically identifies the source platform from pasted content
+- **Step flow chart**: Skills with workflow steps are displayed as a vertical flow diagram
+- **Section comparison**: Side-by-side comparison of each section before and after conversion
+- **Loss report**: Detailed report of fully preserved / partially preserved / lost / manual-check items
+- **Conversion verification**: Simulates how the target platform reads the output, with a compatibility score
+- **Intermediate JSON**: View the unified `AgentSkillSpec` intermediate representation
+- **Single-file version**: A 178KB standalone HTML file, no server needed
 
 ## Quick Start
 
-### Using Docker
+### Online (Recommended)
 
-```bash
-docker-compose up --build
-```
+Visit the GitHub Pages deployment:
 
-- Frontend: http://localhost
-- Backend API: http://localhost:8000
+**https://singingshuai.github.io/agent-skill-converter/**
 
 ### Local Development
-
-#### Backend
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
-
-#### Frontend
 
 ```bash
 cd frontend
 npm install
 npm run dev
+# Open http://localhost:3000
 ```
 
-## CLI Usage
+### Single File
 
-### Convert Skill
+The root `agent-skill-converter.html` is a self-contained 178KB file with all JS and CSS inlined. Serve it via HTTP (browser security blocks `file://` protocol):
 
 ```bash
-python -m app.cli convert \
-  --from codex \
-  --to claude \
-  --input ./examples/simple-skill \
-  --output ./dist/simple-skill-claude
+python -m http.server 8080
+# Open http://localhost:8080/agent-skill-converter.html
 ```
 
-### Inspect Skill
+### Windows One-Click
+
+Double-click `å¯åŠ¨è½¬æ¢å™¨.bat` (Start Converter) to launch a local server and open the browser automatically.
+
+## Usage
+
+1. **Paste content**: Paste any platform's skill file content into the input box
+   - Codex `SKILL.md` (frontmatter with `license` field)
+   - Claude `SKILL.md` (frontmatter with `name` field)
+   - Cursor `.mdc` (frontmatter with `alwaysApply` field)
+2. **Select target platform** from the dropdown
+3. **Click "å¼€å§‹è½¬æ¢"** (Start Conversion)
+4. **View results**:
+   - **æ­¥éª¤æµç¨‹** (Steps): Vertical flow chart of workflow steps (click to expand details)
+   - **ç« èŠ‚å¯¹æ¯”** (Sections): Side-by-side section comparison (click to expand content preview)
+   - **è½¬æ¢ç»“æœ** (Output): Generated target platform file
+   - **ä¸­é—´ JSON** (Spec): Unified intermediate representation
+   - **æŸå¤±æŠ¥å‘Š** (Report): Preservation status of each field
+   - **è½¬æ¢éªŒè¯** (Verify): Target platform compatibility score
+
+## Deploy to GitHub Pages
+
+### Automatic
 
 ```bash
-python -m app.cli inspect \
-  --from codex \
-  --input ./examples/simple-skill
+# Windows
+deploy-github-pages.bat https://github.com/username/repo.git
+
+# Linux/Mac
+bash deploy-github-pages.sh https://github.com/username/repo.git
 ```
 
-## API Endpoints
+### Manual
 
-### POST /api/convert
+1. Create a public repository on GitHub
+2. Push the code:
 
-Convert skill to target platform.
-
-**Request:**
-```json
-{
-  "source_platform": "codex",
-  "target_platform": "claude",
-  "input_type": "markdown",
-  "content": "# Skill Name\n..."
-}
+```bash
+git remote add github https://github.com/username/repo.git
+git push -u github master
 ```
 
-**Response:**
-```json
-{
-  "success": true,
-  "spec": {},
-  "output_files": [{"filename": "skill.md", "content": "..."}],
-  "loss_report": {
-    "preserved": ["name", "description"],
-    "partial": ["workflow"],
-    "lost": [],
-    "manual_check": ["resources"]
-  }
-}
-```
-
-### POST /api/inspect
-
-Inspect skill intermediate JSON without generating output.
-
-**Request:** Same as /api/convert
-
-**Response:**
-```json
-{
-  "success": true,
-  "spec": {}
-}
-```
+3. Go to repository â†’ Settings â†’ Pages â†’ Source: select `master` branch
+4. Wait 1-2 minutes, then visit `https://username.github.io/repo/`
 
 ## Project Structure
 
 ```
 agent-skill-converter/
-©À©¤©¤ backend/
-©¦   ©À©¤©¤ app/
-©¦   ©¦   ©À©¤©¤ api/          # FastAPI routes
-©¦   ©¦   ©À©¤©¤ core/         # Spec, validator, loss report
-©¦   ©¦   ©À©¤©¤ generators/   # Platform generators
-©¦   ©¦   ©¸©¤©¤ parsers/      # Platform parsers
-©¦   ©À©¤©¤ tests/
-©¦   ©¸©¤©¤ Dockerfile
-©À©¤©¤ frontend/
-©¦   ©À©¤©¤ src/
-©¦   ©¦   ©¸©¤©¤ components/
-©¦   ©¸©¤©¤ Dockerfile
-©À©¤©¤ examples/             # Test skill fixtures
-©À©¤©¤ docs/
-©¸©¤©¤ docker-compose.yml
+â”œâ”€â”€ README.md                       # This file
+â”œâ”€â”€ README_CN.md                    # Chinese documentation
+â”œâ”€â”€ agent-skill-converter.html      # Standalone single-file version (178KB)
+â”œâ”€â”€ index.html                      # GitHub Pages entry point
+â”œâ”€â”€ assets/                         # GitHub Pages static assets
+â”œâ”€â”€ å¯åŠ¨è½¬æ¢å™¨.bat                    # Windows one-click launcher
+â”œâ”€â”€ serve.bat                       # npx serve launcher
+â”œâ”€â”€ deploy-github-pages.bat         # GitHub Pages deploy script (Windows)
+â”œâ”€â”€ deploy-github-pages.sh          # GitHub Pages deploy script (Linux/Mac)
+â”œâ”€â”€ .gitignore
+â””â”€â”€ frontend/
+    â”œâ”€â”€ index.html
+    â”œâ”€â”€ package.json
+    â”œâ”€â”€ vite.config.ts
+    â”œâ”€â”€ tsconfig.json
+    â””â”€â”€ src/
+        â”œâ”€â”€ App.tsx                 # Main UI
+        â”œâ”€â”€ index.css               # Styles
+        â”œâ”€â”€ main.tsx                # Entry point
+        â””â”€â”€ lib/
+            â”œâ”€â”€ types.ts            # Type definitions
+            â”œâ”€â”€ parser.ts           # Parsers (Codex/Claude/Cursor)
+            â”œâ”€â”€ generators.ts       # Generators (5 target platforms)
+            â”œâ”€â”€ validator.ts        # Validation rules
+            â””â”€â”€ verifier.ts         # Conversion verification
 ```
+
+## Architecture
+
+- **Pure frontend**: All conversion logic runs in the browser, no backend required
+- **Intermediate standard**: All skills are first parsed into a unified `AgentSkillSpec` structure, then generated into the target platform format
+- **Rule-based conversion**: No LLM dependency, deterministic rule-based transformation
+- **Content preservation**: Section-level preservation (not field-level extraction), 99%+ retention rate
+- **47 test cases**: Verified against real-world skills from Codex, Claude, and Cursor
 
 ## Supported Platforms
 
-- **Codex**: OpenAI Codex skills (input only in v1)
-- **Claude**: Anthropic Claude skills
-- **Cursor**: Cursor rules (.cursor/rules/*.mdc)
-- **Markdown**: Generic markdown format
+| Platform | Input | Output | Format |
+|----------|-------|--------|--------|
+| Codex | âœ… | âœ… | `name` + `description` + `license` frontmatter |
+| Claude | âœ… | âœ… | `name` + `description` frontmatter |
+| Cursor | âœ… | âœ… | `description` + `globs` + `alwaysApply` frontmatter, `.mdc` files |
+| GitHub Copilot | - | âœ… | Claude-style format |
+| Markdown | - | âœ… | Generic markdown with metadata |
 
 ## License
 
