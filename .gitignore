@@ -36,3 +36,6 @@ backend/
 dist/
 docs/
 docker-compose.yml
+# Deploy files
+frontend/Dockerfile
+frontend/nginx.conf
