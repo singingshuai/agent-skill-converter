@@ -57,4 +57,4 @@ export interface ConvertResult {
   error?: string;
 }
 
-export type TargetPlatform = 'claude' | 'cursor' | 'copilot' | 'markdown';
+export type TargetPlatform = 'codex' | 'claude' | 'cursor' | 'copilot' | 'markdown';
