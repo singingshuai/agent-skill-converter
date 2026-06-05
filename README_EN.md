@@ -59,31 +59,6 @@ Double-click `启动转换器.bat` (Start Converter) to launch a local server an
    - **损失报告** (Report): Preservation status of each field
    - **转换验证** (Verify): Target platform compatibility score
 
-## Deploy to GitHub Pages
-
-### Automatic
-
-```bash
-# Windows
-deploy-github-pages.bat https://github.com/username/repo.git
-
-# Linux/Mac
-bash deploy-github-pages.sh https://github.com/username/repo.git
-```
-
-### Manual
-
-1. Create a public repository on GitHub
-2. Push the code:
-
-```bash
-git remote add github https://github.com/username/repo.git
-git push -u github master
-```
-
-3. Go to repository → Settings → Pages → Source: select `master` branch
-4. Wait 1-2 minutes, then visit `https://username.github.io/repo/`
-
 ## Project Structure
 
 ```
@@ -93,10 +68,6 @@ agent-skill-converter/
 ├── agent-skill-converter.html      # Standalone single-file version (178KB)
 ├── index.html                      # GitHub Pages entry point
 ├── assets/                         # GitHub Pages static assets
-├── 启动转换器.bat                    # Windows one-click launcher
-├── serve.bat                       # npx serve launcher
-├── deploy-github-pages.bat         # GitHub Pages deploy script (Windows)
-├── deploy-github-pages.sh          # GitHub Pages deploy script (Linux/Mac)
 ├── .gitignore
 └── frontend/
     ├── index.html

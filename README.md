@@ -60,31 +60,6 @@ python -m http.server 8080
    - **损失报告**：查看完整保留/部分保留/丢失/需确认的内容
    - **转换验证**：查看目标平台能否正确读取转换结果
 
-## 部署到 GitHub Pages
-
-### 自动部署
-
-```bash
-# Windows
-deploy-github-pages.bat https://github.com/用户名/仓库名.git
-
-# Linux/Mac
-bash deploy-github-pages.sh https://github.com/用户名/仓库名.git
-```
-
-### 手动部署
-
-1. 在 GitHub 上创建公开仓库
-2. 推送代码：
-
-```bash
-git remote add github https://github.com/用户名/仓库名.git
-git push -u github master
-```
-
-3. 到仓库 → Settings → Pages → Source 选 `master` 分支
-4. 等待 1-2 分钟即可访问
-
 ## 项目结构
 
 ```
@@ -94,10 +69,6 @@ agent-skill-converter/
 ├── agent-skill-converter.html      # 单文件版本（178KB，双击可用）
 ├── index.html                      # GitHub Pages 入口
 ├── assets/                         # GitHub Pages 静态资源
-├── 启动转换器.bat                    # Windows 一键启动
-├── serve.bat                       # npx serve 启动
-├── deploy-github-pages.bat         # GitHub Pages 部署脚本（Windows）
-├── deploy-github-pages.sh          # GitHub Pages 部署脚本（Linux/Mac）
 ├── .gitignore
 └── frontend/
     ├── index.html
